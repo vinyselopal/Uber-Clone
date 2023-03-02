@@ -1,6 +1,6 @@
 const express = require('express')
-const router = express.Router()
+const usersRouter = express.Router()
 
 const { getLocationsByUser } = require('../controllers/usersController.js')
-router.get('/users/locations', getLocationsByUser)
-module.exports = { router }
+usersRouter.get('/users/locations', getLocationsByUser)
+module.exports = { usersRouter }

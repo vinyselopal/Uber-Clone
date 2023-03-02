@@ -1,15 +1,20 @@
 const express = require('express')
 const { Server } = require('socket.io')
+const createServer = require('http')
 
 const app = express()
-const io = new Server()
+const httpServer = createServer(app)
+
+const { ridesRouter } = require('./routers/ridesRouter')
+const { usersRouter } = require('./routers/usersRouter')
+
+const io = new Server(httpServer)
+
+global.io = io
 
 io.on('connection', (socket) => {
     // drivers connect
+    console.log('socket connected')
 })
-require('dotenv').config()
-const PORT = process.env.httpPort
-const SPORT = process.env.socketioPort
 
-io.listen(SPORT)
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+module.exports = { httpServer }

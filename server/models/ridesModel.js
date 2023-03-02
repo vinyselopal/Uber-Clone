@@ -1,4 +1,4 @@
-const updateDriverByRide = (rideId) => {
+const updateDriverByRideModel = (rideId) => {
 }
 
 const createRideByUserModel = (userId) => {
@@ -6,4 +6,4 @@ const createRideByUserModel = (userId) => {
     return rideId
 }
 
-module.exports = { updateDriverByRide, createRideByUserModel }
+module.exports = { updateDriverByRideModel, createRideByUserModel }
