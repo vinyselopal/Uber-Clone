@@ -3,4 +3,5 @@ const getLocationsByUserModel = (userId) => {
     return locations
 }
 
+
 module.exports = { getLocationsByUserModel }
