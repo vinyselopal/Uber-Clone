@@ -11,43 +11,33 @@ const Looking = () => {
         }, () => console.log)
     }
 
-    const onSubmit = (e) => {
-        console.log(FormData, latitude, longitude)
-        return false
-    }
     return (
         <div>
-            <form action='http://localhost:8000/rides' method='POST' onSubmit={onSubmit}>
+            <div>
+                <h2>
+                    Where can we pick you up?
+                </h2>
+            </div>
+            <div>
                 <div>
-                    <h2>
-                        Where can we pick you up?
-                    </h2>
+                    <input
+                        type='text'
+                        placeholder='add a pick up location'
+                    />
                 </div>
                 <div>
-                    <div>
-                        <input
-                            type='text'
-                            placeholder='add a pick up location'
-                            defaultValue={{ latitude, longitude }}
-                            name="source"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type='text'
-                            placeholder='add a destination'
-                            defaultValue={{ latitude, longitude }}
-                            name="destination"
-                        />
-                    </div>
+                    <input
+                        type='text'
+                        placeholder='add a destination'
+                    />
                 </div>
-                <div>
-                    <button onClick={geoLocate()}>Locate me</button>
-                </div>
-                <div>
-                    <input type="submit" value='Confirm ride' />
-                </div>
-            </form>
+            </div>
+            <div>
+                <button onClick={geoLocate()}>Locate me</button>
+            </div>
+            <div>
+                <input type="submit" value='Confirm ride' />
+            </div>
         </div>
     )
 }
