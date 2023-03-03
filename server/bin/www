@@ -1,5 +1,5 @@
 const { httpServer } = require('../index')
 require('dotenv').config()
 
-const PORT = process.env.httpPort
+const PORT = process.env.port
 httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`))

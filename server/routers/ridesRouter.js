@@ -2,7 +2,8 @@ const express = require('express')
 const ridesRouter = express.Router()
 
 const { updateDriverByRide, createRideByUser } = require('../controllers/ridesController.js')
-ridesRouter.put('/rides/:rideId/driver', updateDriverByRide)
-ridesRouter.post('/rides', createRideByUser)
+
+ridesRouter.put('/:rideId/driver', updateDriverByRide)
+ridesRouter.post('/', createRideByUser)
 
 module.exports = { ridesRouter }

@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useState } from 'react'
 
 const Looking = () => {
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
+    const [latitude, setLatitude] = useState(12.9684064)
+    const [longitude, setLongitude] = useState(77.6445793)
 
     const geoLocate = () => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -11,27 +11,43 @@ const Looking = () => {
         }, () => console.log)
     }
 
+    const onSubmit = (e) => {
+        console.log(FormData, latitude, longitude)
+        return false
+    }
     return (
         <div>
-            <div>
-                <h2>
-                    Where can we pick you up?
-                </h2>
-            </div>
-            <div>
+            <form action='http://localhost:8000/rides' method='POST' onSubmit={onSubmit}>
                 <div>
-                    <input type='text' placeholder='add a pick up location'></input>
+                    <h2>
+                        Where can we pick you up?
+                    </h2>
                 </div>
                 <div>
-                    <input type='text' placeholder='add a destination'></input>
+                    <div>
+                        <input
+                            type='text'
+                            placeholder='add a pick up location'
+                            defaultValue={{ latitude, longitude }}
+                            name="source"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type='text'
+                            placeholder='add a destination'
+                            defaultValue={{ latitude, longitude }}
+                            name="destination"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div>
-                <button onClick={geoLocate()}>Set location on map</button>
-            </div>
-            <div>
-                <button>Set location on map</button>
-            </div>
+                <div>
+                    <button onClick={geoLocate()}>Locate me</button>
+                </div>
+                <div>
+                    <input type="submit" value='Confirm ride' />
+                </div>
+            </form>
         </div>
     )
 }
