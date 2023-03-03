@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:8000'
 
-export const confirmBooking = async (ride) => {
+export const searchDriversAPI = async (ride) => {
     console.log(JSON.stringify(ride))
     const response = await fetch(`${BASE_URL}/rides`, {
         method: 'POST',
@@ -12,4 +12,5 @@ export const confirmBooking = async (ride) => {
     const parsedResponse = await response.json()
     console.log(parsedResponse)
 }
+
 
