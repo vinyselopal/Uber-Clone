@@ -8,7 +8,6 @@ const cors = require('cors')
 const { ridesRouter } = require('./routers/ridesRouter')
 const { usersRouter } = require('./routers/usersRouter')
 const { getPendingRides } = require('./models/ridesModel')
-const bodyParser = require('body-parser')
 const io = new Server(httpServer)
 
 global.io = io
@@ -22,7 +21,6 @@ io.on('connection', (socket) => {
   })
 })
 
-app.use(bodyParser.urlencoded())
 app.use(cors())
 app.use(express.json())
 

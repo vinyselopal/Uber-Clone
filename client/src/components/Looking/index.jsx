@@ -1,16 +1,27 @@
 import { useState } from 'react'
+import { confirmBooking } from '../../apis.js'
 
 const Looking = () => {
-    const [latitude, setLatitude] = useState(12.9684064)
-    const [longitude, setLongitude] = useState(77.6445793)
+    const [source, setSource] = useState(null)
+    const [destination, setDestination] = useState(null)
 
     const geoLocate = () => {
         navigator.geolocation.getCurrentPosition((position) => {
-            setLatitude(position.coords.latitude)
-            setLongitude(position.coords.longitude)
+            setSource({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            })
         }, () => console.log)
     }
 
+    const createRide = () => {
+        const ride = {
+            source,
+            destination // include vehicle type and payment amount later
+        }
+        const response = confirmBooking(ride)
+
+    }
     return (
         <div>
             <div>
@@ -33,10 +44,10 @@ const Looking = () => {
                 </div>
             </div>
             <div>
-                <button onClick={geoLocate()}>Locate me</button>
+                <button onClick={geoLocate}>Locate me</button>
             </div>
             <div>
-                <input type="submit" value='Confirm ride' />
+                <button onClick={createRide}>Confirm booking</button>
             </div>
         </div>
     )
