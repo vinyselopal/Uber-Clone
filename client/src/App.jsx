@@ -1,11 +1,11 @@
-import Looking from './components/Looking'
+import Home from './components/Home'
 import { io } from 'socket.io-client'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Looking />} />
+        <Route path='/' element={<Home />} />
       </Routes>
     </Router>
   )
