@@ -1,9 +1,8 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet'
 import React, { useEffect, useRef } from 'react'
 
-import EsriLeafletGeoSearch from 'react-esri-leaflet/plugins/EsriLeafletGeoSearch'
-
-const MapComponent = ({ position }) => {
+const MapComponent = ({ source, destination, setSource, setDestination }) => {
+    console.log('source', source, 'destination', destination)
     return (
         <div id='map'>
             <MapContainer
@@ -11,28 +10,33 @@ const MapComponent = ({ position }) => {
                     height: 500, width: "100 %"
                 }}
                 center={[12.961489, 77.6441696]} zoom={13} scrollWheelZoom={false} >
-
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={position || [12.961489, 77.6441696]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
-                <EsriLeafletGeoSearch useMapBounds={false} position="topleft"
-                    eventHandlers={{
-                        requeststart: () => console.log("Started request..."),
-                        requestend: () => console.log("Ended request..."),
-                        results: (r) => console.log(r)
-                    }}
-                    providers={{
-                        arcgisOnlineProvider: {
-                            token: 'AAPKe9a4f3fa4277451d840029c268d29c589V39xPFRZv7cMWh9SHLIZ_w7KkP1EeHVmuGfbmMBcMK83RAa_GN1DqJ2D3RdgnlK',
-                            label: "ArcGIS Online Results",
-                            maxResults: 10
-                        }
-                    }} />
+                {
+                    source
+                        ? (
+                            <Marker position={source}>
+                                <Popup>
+                                    A pretty CSS3 popup. <br /> Easily customizable.
+                                </Popup>
+                            </Marker>
+                        )
+                        : null
+                }
+                {
+                    destination
+                        ? (
+                            <Marker position={destination}>
+                                <Popup>
+                                    A pretty CSS3 popup. <br /> Easily customizable.
+                                </Popup>
+                            </Marker>
+                        )
+                        : null
+                }
+
+
             </MapContainer>
         </div >
     )
