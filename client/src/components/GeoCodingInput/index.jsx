@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { LocationContext } from '../../pages/Home'
 
 const GeoCodingInput = ({ locationType }) => {
@@ -7,10 +7,30 @@ const GeoCodingInput = ({ locationType }) => {
 
     const { setSource, setDestination } = useContext(LocationContext)
 
-    const getSuggestions = async (event) => {
-        const place = event.target.value
-        setAddress(place)
+    useEffect(() => {
+        if (locationType === 'source') {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const latlng = [position.coords.longitude, position.coords.latitude]
+                setSource(latlng)
+                const address = getAddressFromLatlng(latlng)
+            }, () => console.log)
+        }
+    }, [])
 
+    const getAddressFromLatlng = async (location) => {
+        const geoSearchAPIKEY = import.meta.env.VITE_GEOSEARCH_API_KEY
+        const geoSearchAPI = new URL('https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=json')
+
+        geoSearchAPI.searchParams.set('location', location)
+        geoSearchAPI.searchParams.set('token', geoSearchAPIKEY)
+
+        const response = await fetch(geoSearchAPI.toString())
+        const parsedResponse = await response.json()
+
+        setAddress(parsedResponse.address.LongLabel)
+    }
+
+    const getAddressFromKeyword = async (place) => {
         const geoSearchAPIKEY = import.meta.env.VITE_GEOSEARCH_API_KEY
         const geoSearchAPI = new URL('https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json')
 
@@ -19,7 +39,15 @@ const GeoCodingInput = ({ locationType }) => {
 
         const response = await fetch(geoSearchAPI.toString())
         const suggestions = await response.json()
-        setSuggestions(suggestions.candidates)
+
+        return suggestions.candidates
+    }
+
+    const getSuggestions = async (event) => {
+        const place = event.target.value
+        setAddress(place)
+        const suggestions = await getAddressFromKeyword(place)
+        setSuggestions(suggestions)
     }
 
     const setLocation = (suggestion, event) => {

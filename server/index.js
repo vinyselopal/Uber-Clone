@@ -16,9 +16,8 @@ const io = new Server(httpServer)
 global.io = io
 
 io.on('connection', (socket) => {
-  console.log('socket connected')
   socket.on('available', () => {
-    const pendingRide = getFirstPendingRide()
+    const pendingRide = getFirstPendingRide(socket)
     if (pendingRide) socket.emit('allotRide', pendingRide)
   })
 })

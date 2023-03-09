@@ -9,12 +9,6 @@ const Home = () => {
     const [source, setSource] = useState([])
     const [destination, setDestination] = useState([])
 
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            setSource([position.coords.latitude, position.coords.longitude])
-        }, () => console.log)
-    }, [])
-
     return (
         <div>
             <LocationContext.Provider value={{ source, destination, setSource, setDestination }}>

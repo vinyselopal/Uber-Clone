@@ -5,6 +5,7 @@ import { useContext } from "react"
 
 const RideForm = () => {
     const { source, destination, setSource, setDestination } = useContext(LocationContext)
+
     const searchDrivers = () => {
         if (source.length && searchDrivers.length) {
             const ride = {
