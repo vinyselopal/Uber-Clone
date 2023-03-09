@@ -3,24 +3,23 @@ import { useState } from 'react'
 const GeoCodingInput = ({ setSource, setDestination, locationType }) => {
     const [suggestions, setSuggestions] = useState([])
     const [address, setAddress] = useState('')
+
     const getSuggestions = async (event) => {
         const place = event.target.value
         setAddress(place)
 
         const geoSearchAPIKEY = import.meta.env.VITE_GEOSEARCH_API_KEY
-        console.log(geoSearchAPIKEY)
         const geoSearchAPI = new URL('https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json')
+
         geoSearchAPI.searchParams.set('SingleLine', place)
         geoSearchAPI.searchParams.set('token', geoSearchAPIKEY)
-        console.log(geoSearchAPI.toString())
+
         const response = await fetch(geoSearchAPI.toString())
         const suggestions = await response.json()
-        console.log(suggestions)
         setSuggestions(suggestions.candidates)
     }
 
     const setLocation = (suggestion, event) => {
-        console.log(suggestion)
         const position = [
             suggestion.location.y,
             suggestion.location.x
