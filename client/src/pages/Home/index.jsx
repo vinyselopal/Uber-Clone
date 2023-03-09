@@ -1,7 +1,8 @@
-import { useState, useEffect, createContext } from 'react'
-import { searchDriversAPI } from '../../apis.js'
 import Map from '../../components/Map'
 import RideForm from '../../components/RideForm'
+import { searchDriversAPI } from '../../apis.js'
+
+import { useState, useEffect, createContext } from 'react'
 
 export const LocationContext = createContext()
 const Home = () => {

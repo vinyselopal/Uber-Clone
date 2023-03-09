@@ -1,9 +1,9 @@
+import { LocationContext } from "../../pages/Home";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
 import { useContext } from "react";
 import "leaflet-routing-machine";
 import { createControlComponent } from "@react-leaflet/core"
-import { LocationContext } from "../../pages/Home";
 
 const createRoutineMachineLayer = () => {
     const { source, destination } = useContext(LocationContext)
