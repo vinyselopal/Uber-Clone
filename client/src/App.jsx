@@ -1,4 +1,4 @@
-import Home from './components/Home'
+import Home from './pages/Home'
 import { io } from 'socket.io-client'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 const App = () => {
