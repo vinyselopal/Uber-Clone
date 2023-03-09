@@ -1,16 +1,19 @@
 import GeoCodingInput from "../GeoCodingInput"
 
 const RideForm = ({ source, destination, setSource, setDestination }) => {
+
     const searchDrivers = () => {
-        const ride = {
-            source,
-            destination // include vehicle type and payment amount later
+        if (source.length && searchDrivers.length) {
+            const ride = {
+                source,
+                destination // include vehicle type and payment amount later
+            }
+            const response = searchDriversAPI(ride)
         }
-        const response = searchDriversAPI(ride)
     }
 
     return (
-        <div id='ride-form' style={{ position: 'relative', zIndex: 100, top: 0 }}>
+        <div id='ride-form'>
             <div>
                 <h2>
                     Get a ride
