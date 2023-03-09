@@ -1,12 +1,14 @@
 import GeoCodingInput from "../GeoCodingInput"
+import { LocationContext } from "../../pages/Home"
+import { useContext } from "react"
 
-const RideForm = ({ source, destination, setSource, setDestination }) => {
-
+const RideForm = () => {
+    const { source, destination, setSource, setDestination } = useContext(LocationContext)
     const searchDrivers = () => {
         if (source.length && searchDrivers.length) {
             const ride = {
                 source,
-                destination // include vehicle type and payment amount later
+                destination
             }
             const response = searchDriversAPI(ride)
         }
@@ -20,8 +22,8 @@ const RideForm = ({ source, destination, setSource, setDestination }) => {
                 </h2>
             </div>
             <div>
-                <GeoCodingInput setSource={setSource} setDestination={setDestination} locationType='source' />
-                <GeoCodingInput setSource={setSource} setDestination={setDestination} locationType='destination' />
+                <GeoCodingInput locationType='source' />
+                <GeoCodingInput locationType='destination' />
             </div>
             <div>
                 <button onClick={searchDrivers}>Search</button>

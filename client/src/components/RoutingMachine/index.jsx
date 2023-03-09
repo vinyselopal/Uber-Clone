@@ -1,9 +1,13 @@
 import L from "leaflet";
 import { useMap } from "react-leaflet";
+import { useContext } from "react";
 import "leaflet-routing-machine";
 import { createControlComponent } from "@react-leaflet/core"
+import { LocationContext } from "../../pages/Home";
 
-const createRoutineMachineLayer = ({ source, destination }) => {
+const createRoutineMachineLayer = () => {
+    const { source, destination } = useContext(LocationContext)
+
     const instance = L.Routing.control({
         waypoints: [
             L.latLng(source[0], source[1]),

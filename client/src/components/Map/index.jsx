@@ -1,8 +1,11 @@
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, useMap } from 'react-leaflet'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useContext } from 'react'
 import RoutingMachine from '../RoutingMachine'
+import { LocationContext } from '../../pages/Home'
 
-const Map = ({ source, destination, setSource, setDestination }) => {
+const Map = () => {
+    const { source, destination } = useContext(LocationContext)
+
     return (
         <div id='map'>
             <MapContainer

@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext } from 'react'
 import { searchDriversAPI } from '../../apis.js'
 import Map from '../../components/Map'
 import RideForm from '../../components/RideForm'
 
+export const LocationContext = createContext()
 const Home = () => {
     const [source, setSource] = useState([])
     const [destination, setDestination] = useState([])
@@ -15,9 +16,11 @@ const Home = () => {
 
     return (
         <div>
-            <RideForm source={source} destination={destination} setSource={setSource} setDestination={setDestination} />
-            <Map source={source} destination={destination} setSource={setSource} setDestination={setDestination} />
-        </div>
+            <LocationContext.Provider value={{ source, destination, setSource, setDestination }}>
+                <RideForm />
+                <Map />
+            </LocationContext.Provider>
+        </div >
     )
 }
 

@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { LocationContext } from '../../pages/Home'
 
-const GeoCodingInput = ({ setSource, setDestination, locationType }) => {
+const GeoCodingInput = ({ locationType }) => {
     const [suggestions, setSuggestions] = useState([])
     const [address, setAddress] = useState('')
+
+    const { setSource, setDestination } = useContext(LocationContext)
 
     const getSuggestions = async (event) => {
         const place = event.target.value
