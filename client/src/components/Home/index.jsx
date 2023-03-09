@@ -4,8 +4,8 @@ import MapComponent from '../MapComponent'
 import RideForm from '../RideForm'
 
 const Home = () => {
-    const [source, setSource] = useState(null)
-    const [destination, setDestination] = useState(null)
+    const [source, setSource] = useState([])
+    const [destination, setDestination] = useState([])
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {

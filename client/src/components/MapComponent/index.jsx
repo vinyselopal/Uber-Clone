@@ -1,5 +1,6 @@
-import { MapContainer, TileLayer, Marker, Popup, LayersControl } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, LayersControl, useMap } from 'react-leaflet'
 import React, { useEffect, useRef } from 'react'
+import RoutingMachine from '../RoutingMachine'
 
 const MapComponent = ({ source, destination, setSource, setDestination }) => {
     console.log('source', source, 'destination', destination)
@@ -10,11 +11,18 @@ const MapComponent = ({ source, destination, setSource, setDestination }) => {
                     height: 500, width: "100 %"
                 }}
                 center={[12.961489, 77.6441696]} zoom={13} scrollWheelZoom={false} >
+                {
+                    source.length && destination.length
+                        ? (
+                            <RoutingMachine source={source} destination={destination} />
+                        )
+                        : null
+                }
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {
-                    source
+                    source.length
                         ? (
                             <Marker position={source}>
                                 <Popup>
@@ -25,7 +33,7 @@ const MapComponent = ({ source, destination, setSource, setDestination }) => {
                         : null
                 }
                 {
-                    destination
+                    destination.length
                         ? (
                             <Marker position={destination}>
                                 <Popup>
