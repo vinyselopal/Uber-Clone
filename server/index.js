@@ -2,11 +2,13 @@ const express = require('express')
 const { Server } = require('socket.io')
 const { createServer } = require('http')
 const { getFirstPendingRide } = require('./models/ridesModel')
-
+const { connect } = require('./configDB.js')
 const app = express()
 const httpServer = createServer(app)
 
 const cors = require('cors')
+
+connect()
 
 const { ridesRouter } = require('./routers/ridesRouter')
 const { usersRouter } = require('./routers/usersRouter')
