@@ -5,10 +5,12 @@ const updateDriverByRide = (req, res, next) => {
   updateDriverByRideModel(userId)
 }
 
-const createRideByUser = (req, res, next) => {
+const createRideByUser = async (req, res, next) => {
   console.log('rides post', req.body)
-  const userId = req.userId
-  const rideId = createRideByUserModel(userId)
+  const ride = req.body.ride
+  const rideID = await createRideByUserModel(ride)
+  console.log(rideID)
+  res.json({ rideID })
 }
 
 module.exports = { updateDriverByRide, createRideByUser }
