@@ -12,22 +12,32 @@ connect()
 
 const { ridesRouter } = require('./routers/ridesRouter')
 const { usersRouter } = require('./routers/usersRouter')
-const { getPendingRides } = require('./models/ridesModel')
 
-const io = new Server(httpServer)
+app.use(cors({
+  origin: ['http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}))
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: ['http://localhost:5173']
+  }
+})
+
 global.io = io
 
 io.on('connection', (socket) => {
-  socket.on('available', (location) => {
-    const pendingRide = getNearestPendingRide(location)
+  socket.on('available', async (location) => {
+    console.log('available', location)
+    const pendingRide = await getNearestPendingRide(location)
+    console.log(pendingRide)
     if (pendingRide) socket.emit('allotRide', pendingRide)
   })
 })
 
-app.use(cors())
 app.use(express.json())
 
 app.use('/rides', ridesRouter)
 app.use('/users', usersRouter)
 
-module.exports = { httpServer }
+module.exports = { httpServer, io }

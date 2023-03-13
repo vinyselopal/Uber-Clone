@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0"
+    "@faker-js/faker": "^7.6.0",
+    "standard": "^17.0.0"
   }
 }

@@ -17,17 +17,19 @@ const createRideByUserModel = async (ride) => {
 }
 
 const getNearestPendingRide = async (location) => {
+  const newLocation = location.map(a => parseInt(a, 10))
+  console.log('newlocation1', newLocation)
   const pendingRides = await rides.find({
-    "source.latlng": {
+    'source.latlng': {
       $near: {
         $geometry: {
-          type: "Point",
-          coordinates: location
-        },
+          type: 'Point',
+          coordinates: newLocation
+        }
       }
     }
   }).toArray()
-
+  console.log(pendingRides)
   return pendingRides[0]
 }
 
