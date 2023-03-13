@@ -1,6 +1,7 @@
 const BASE_URL = 'http://localhost:8000'
 
 export const searchDriversAPI = async (ride) => {
+    console.log('hi2')
     const response = await fetch(`${BASE_URL}/rides`, {
         method: 'POST',
         body: JSON.stringify({ ride }),

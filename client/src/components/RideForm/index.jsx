@@ -2,13 +2,15 @@ import GeoCodingInput from "../GeoCodingInput"
 
 import { LocationContext } from "../../pages/Home"
 import { useContext } from "react"
-
+import { searchDriversAPI } from "../../apis"
 const RideForm = () => {
     const { source, destination, setSource, setDestination } = useContext(LocationContext)
 
     const searchDrivers = () => {
-        if (source.length && searchDrivers.length) {
+        console.log(source.length, destination.length)
+        if (source.length && destination.length) {
             const ride = {
+                user_id: 1,
                 source,
                 destination
             }

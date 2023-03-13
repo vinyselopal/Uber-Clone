@@ -1,7 +1,7 @@
 const express = require('express')
 const { Server } = require('socket.io')
 const { createServer } = require('http')
-const { getFirstPendingRide } = require('./models/ridesModel')
+const { getNearestPendingRide } = require('./models/ridesModel')
 const { connect } = require('./configDB.js')
 const app = express()
 const httpServer = createServer(app)
@@ -18,8 +18,8 @@ const io = new Server(httpServer)
 global.io = io
 
 io.on('connection', (socket) => {
-  socket.on('available', () => {
-    const pendingRide = getFirstPendingRide(socket)
+  socket.on('available', (location) => {
+    const pendingRide = getNearestPendingRide(location)
     if (pendingRide) socket.emit('allotRide', pendingRide)
   })
 })
