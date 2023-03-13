@@ -1,13 +1,15 @@
-import Home from './pages/Home'
+import UserHome from './pages/UserHome'
+import DriverHome from './pages/DriverHome/index.jsx'
 
-import { io } from 'socket.io-client'
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/user' element={<UserHome />} />
+        <Route path='/driver' element={<DriverHome />} />
+
       </Routes>
     </Router>
   )
