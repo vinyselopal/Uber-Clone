@@ -8,10 +8,9 @@ const myDB = client.db('uberClone')
 const rides = myDB.collection('rides')
 const drivers = myDB.collection('drivers')
 
-async function connect () {
+async function connect() {
   try {
     await client.connect()
-    console.log('hi')
     await client.db('admin').command({ ping: 1 })
     console.log('Connected successfully to server')
   } catch (err) {

@@ -1,7 +1,35 @@
+const { ObjectId } = require('mongodb')
 const { rides } = require('../configDB')
 
-const updateDriverByRideModel = (rideId) => {
+const updateRideByDriverModel = async (rideID, driverID) => {
+  const filter = {
+    _id: new ObjectId(rideID)
+  }
 
+  const update = {
+    $set: {
+      driver_id: new ObjectId(driverID)
+    }
+  }
+
+  const response = await rides.updateOne(filter, update)
+  if (response.modifiedCount !== 1) return false
+  return true
+}
+
+const getNearestPendingRideModel = async (newLocation) => {
+  const pendingRides = await rides.find({
+    'source.latlng': {
+      $near: {
+        $geometry: {
+          type: 'Point',
+          coordinates: newLocation
+        }
+      }
+    }
+  }).toArray()
+
+  return pendingRides[0]
 }
 
 const createRideByUserModel = async (ride) => {
@@ -16,22 +44,4 @@ const createRideByUserModel = async (ride) => {
   return rideID
 }
 
-const getNearestPendingRide = async (location) => {
-  const newLocation = location.map(a => parseInt(a, 10))
-  console.log('newlocation1', newLocation)
-  const pendingRides = await rides.find({
-    'source.latlng': {
-      $near: {
-        $geometry: {
-          type: 'Point',
-          coordinates: newLocation
-        }
-      }
-    }
-  }).toArray()
-  console.log(pendingRides)
-  return pendingRides[0]
-}
-
-(async () => await getNearestPendingRide([12, 77]))()
-module.exports = { updateDriverByRideModel, createRideByUserModel, getNearestPendingRide }
+module.exports = { updateRideByDriverModel, createRideByUserModel, getNearestPendingRideModel }

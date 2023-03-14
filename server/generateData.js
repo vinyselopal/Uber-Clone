@@ -4,6 +4,7 @@ const { connect, rides, drivers } = require('./configDB')
 const generateRidesData = async () => {
   await connect()
   const docs = []
+
   for (let i = 0; i < 50; i++) {
     const sourceLatlng = faker.address.nearbyGPSCoordinate([12, 77], 100, true).map(a => parseInt(a, 10))
     const destinationLatlng = faker.address.nearbyGPSCoordinate([12, 77], 100, true).map(a => parseInt(a, 10))
@@ -45,12 +46,13 @@ const generateDriversData = async () => {
       location: {
         coordinates: location,
         type: 'Point'
-      }
+      },
+      status: 'available'
     })
   }
   await drivers.insertMany(docs)
   // await drivers.deleteMany({})
 }
 
-generateRidesData()
+// generateRidesData()
 generateDriversData()
